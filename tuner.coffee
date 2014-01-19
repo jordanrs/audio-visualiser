@@ -46,18 +46,6 @@
 # 	reader.readAsArrayBuffer(this.files[0]);
 # }, false);
     
-
-  # adpated from http://ianreah.com/js/Real-time-frequency-analysis-of-streaming-audio-data/main.js
-  setupCSSVisualisation = ->
-    barGraph = $("#bar-graph")
-    barSpacing = 100 / audioMixer.analyser.frequencyBinCount
-    
-    for i in [0...audioMixer.analyser.frequencyBinCount]
-      $("<div/>").css("left": "#{ i * barSpacing }%", "width": "#{barSpacing}%").appendTo(barGraph)
-  
-    bars = $("#bar-graph > div")
-
-
   updateGraph = ->
     requestAnimationFrame(updateGraph)
     
@@ -69,12 +57,9 @@
 
     audioMixer.analyser.getByteFrequencyData(frequencyData)
 
-    # use slice to make a copy
-    #
-    # // shift everything to the left:
     imageData = audioMixer.spectrum.getImageData(1, 0, audioMixer.spectrum.canvas.width-1, audioMixer.spectrum.canvas.height)
     audioMixer.spectrum.putImageData(imageData, 0, 0)
-# // now clear the right-most pixels:
+
     audioMixer.spectrum.clearRect(audioMixer.spectrum.canvas.width-1, 0, 1, audioMixer.spectrum.canvas.height)
     
     for point, i in frequencyData
@@ -82,18 +67,7 @@
       audioMixer.spectrum.fillRect(audioMixer.spectrum.canvas.width - 1, frequencyData.length - i, 1, 1 )
 
 
-    # soundAnalyser.push(new Uint8Array(frequencyData))
-    # if soundAnalyser.length > 400
-    #   soundAnalyser.shift()
-
-    # for column, i in soundAnalyser
-    #   for point, j in column
-    #     audioMixer.spectrum.fillStyle = "##{gradient[point]}"
-    #     audioMixer.spectrum.fillRect( i, j, 1, 1 )
-
-
     for bar, i in bars
-      # bar.style.height = frequencyData[i] + 'px'
       audioMixer.canvasContext.fillRect(i*4, 300 - frequencyData[i], 3, 256)
     
     # draw the wave form
@@ -145,14 +119,6 @@
   frequencyData = new Uint8Array(audioMixer.analyser.frequencyBinCount)
   timeData = new Uint8Array(audioMixer.analyser.frequencyBinCount)
 
-  # audioMixer.gain = audioMixer.audioContext.createGain(gain: 1)
-
-  # osc =  audioMixer.audioContext.createOscillator(frequency: 440)
-  # osc.connect(gain)
-  # audioMixer.gain.connect(audioMixer.audioContext.destination)
-  # osc.start(0)
-
-  # osc.stop(3)
   setupCSSVisualisation()
   navigator.getUserMedia( {audio:true}, processStream, -> console.log('no media') )
   updateGraph()
