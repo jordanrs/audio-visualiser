@@ -1,30 +1,27 @@
 <html>
   <head>
     <style>
-      #bar-graph {
-        background-color: black;
-        height: 200px;
-        position: relative;
+
+      body {
+        width: 100%;
+        background
+      }   
+      canvas {
+        display: block;
+        margin: 0 auto;
       }
 
-      #bar-graph div {
-        position: absolute;
-        display:inline-block;
-        background-color: white;
-        bottom: 0;
-      }
     </style>
   </head>
 
   <body>
-    
-    <span id='load'>LOAD FILE INTO AUDIO |</span>
-    <span id='play'>PLAY FILE |</span>
-    <input id='audio-file' type='file' />
-    <audio controls></audio>
-    <canvas id='2d-vis' width=768 height=300></canvas>
-    <canvas id='spectrum' width=768 height=600></canvas>
-    <div id='bar-graph'></div>
+    <!--  -->
+    <!-- <span id='load'>LOAD FILE INTO AUDIO |</span> -->
+    <!-- <span id='play'>PLAY FILE |</span> -->
+    <!-- <input id='audio&#45;file' type='file' /> -->
+    <!-- <audio controls></audio> -->
+    <canvas id='2d-vis' width=768 height=256></canvas>
+    <canvas id='spectrum' width=768 height=256></canvas>
     <script src='/jquery-2.0.0.min.js'></script>
     <script src='/tuner.js'></script>
   </body>
